@@ -1,6 +1,6 @@
 diff = 0.00001;
 tau = 1/10000; 
-b0 = rand(1,12)';
+b0 = rand(1,17)';
 
 
 data = load('dataset.csv');

@@ -26,8 +26,8 @@ dataSize = 126;
 folderSize = 14;
 folderNumber = 9;
 %}
-folderSize = 1;
-folderNumber = 138;
+folderSize = 14;
+folderNumber = 9;
 dataSize = folderSize*folderNumber;
 A = A(1:dataSize,:);
 b = b(1:dataSize,:);

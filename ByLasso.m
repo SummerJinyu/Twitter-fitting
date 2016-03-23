@@ -1,11 +1,5 @@
 diff = 0.00001;
 tau = 1/10000; 
-b0 = rand(1,17)';
-
-
-%1.score
-%2.label
-%3.diff 
 
 %1.score
 data = load('dataset.csv');
@@ -17,14 +11,11 @@ b = data(:,13);
 data2 = load('stock.csv'); 
 A2 = data2(:, 2:6); 
 
-%3.label
-%data3 = load('diff.csv'); 
-%A3 = data(:,1); 
-
 A = [A1 A2]; 
 b = data(:,13); 
-%Leave 126 cases
-%Divide into folders
+dim_A = size(A);
+feature_number = dim_A(2);
+b0 = rand(1,feature_number)'; %initialize the beta.hat
 
 folderSize = 14;
 folderNumber = 9;
@@ -33,7 +24,7 @@ A = A(1:dataSize,:);
 b = b(1:dataSize,:); 
 
 %timeseries_error_rate = zeros([1 (folderNumber-1)]);
-lambda = [1/8, 2/8, 3/8, 4/8, 5/8, 6/8, 7/8, 1, 2, 4, 8]
+lambda = [1/8, 1/4, 1/2, 3/4, 1, 2, 4];
 error_rate_lasso = zeros([length(folderNumber-1) (length(lambda))]);
 sparsity = zeros([length(folderNumber-1) (length(lambda))]);
 for i = 1:(folderNumber-1)
@@ -57,29 +48,36 @@ for i = 1:(folderNumber-1)
 end
 
 error_rate_lasso
+sparsity
 
 
 
+%lambda = [ 1/8, 1/4, 1/2, 3/4, 1, 2, 4]
 figure(1)
 hold on
-xlabel('time-series CV folder')
-ylabel('error rate');
+xlabel('time-series CV folder','FontSize',15)
+ylabel('error rate','FontSize',15);
+title('Forward-chaining CV Error Rate by Lasso', 'FontSize',18)
 folder = 1:folderNumber-1; 
 for i = 1:length(lambda)
-    plot(folder, error_rate_lasso(:,i))
+    plot(folder, error_rate_lasso(:,i)-i*0.0005)
 end
+legend('\lambda=1/8','\lambda=1/4', '\lambda=1/2', '\lambda=3/4', '\lambda=1', '\lambda=2','\lambda=4')
 grid on
 grid minor
 hold off
 
+
 figure(2)
-hold on
-xlabel('time-series CV folder')
-ylabel('Sparsity');
+hold on 
+xlabel('time-series CV folder','FontSize',15)
+ylabel('sparsity','FontSize',15);
+title('The Sparsity of Fitted Weights by Lasso', 'FontSize',18)
 folder = 1:folderNumber-1; 
 for i = 1:length(lambda)
-    plot(folder, sparsity(:,i)/17)
+    plot(folder, sparsity(:,i)/feature_number)
 end
+legend('\lambda=1/8','\lambda=1/4', '\lambda=1/2', '\lambda=3/4', '\lambda=1', '\lambda=2','\lambda=4')
 grid on
 grid minor
 hold off

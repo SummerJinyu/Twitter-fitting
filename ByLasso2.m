@@ -7,7 +7,6 @@ data = load('dataset.csv');
 A = data(:,1:12);
 %A = [A';B']';
 b = data(:,13);
-x = linsolve (A,b); 
 %Leave 126 cases
 %Divide into folders
 

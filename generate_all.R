@@ -40,12 +40,16 @@ x = read.csv(file = "dataset.csv")
 
 #corrlation matrix -----------------
 cor(x[, 1:12])
+
+
+
 #Difference------------------------- 
 N = Nscore[-1:-4]
 P = Pscore[-1:-4]
 dN = c( diff (N, lag = 1)); dN
 dP = c( diff(P, lag = 1)); dP
 write.csv(file = "diff.csv",  x = cbind(cbind(dN, dP), x$Nscore), row.names = F)
+
 
 #Label------------------------------
 label = label[[1]]

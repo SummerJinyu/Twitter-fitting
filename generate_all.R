@@ -37,9 +37,11 @@ data10 = cbind(Nscore5,data9); data10
 write.csv(file = "dataset.csv", x = data10[c(-1:-5), ], row.names = F)
 x = read.csv(file = "dataset.csv")
 
+which(cor(x[, 1:12]) == 0.473208462)
+
 
 #corrlation matrix -----------------
-cor(x[, 1:12])
+round(cor(x[, 1:12]),2)
 
 
 
